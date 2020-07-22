@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.js"></script>
+    <script src="../js/axios-0.18.0.js"></script>
+</head>
+<body>
+<div id="app">
+    用户名： <input type="text" v-model="user.username">
+    <br>
+    密码：<input type="text" v-model="user.password">
+    <br>
+    邮箱：<input type="text" v-model="user.email">
+    <br>
+    类型：<input type="text" v-model>
+    <br>
+    创建时间：<input type="text" v-model="user.createDate">
+    <br>
+    账户类型：<input type="text" v-model="user.remark">
+</div>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            user:{}
+        },
+        created:function () {
+            this.init()
+        },
+        method:{
+            init:function () {
+                axios.get("../user/showUser.do").then(response=>{
+                    if (response.data.flag){
+                        this.data.user=response.data.result;
+                    } else{
+                        alert(response.data.message)
+                    }
+                })
+            }
+        }
+    })
+</script>
+</body>
+</html>
